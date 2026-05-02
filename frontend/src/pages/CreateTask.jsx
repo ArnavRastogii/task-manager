@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import API from "../api/axios";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
 
 export default function CreateTask() {
   const [task, setTask] = useState({
@@ -18,16 +19,24 @@ export default function CreateTask() {
 
   const navigate = useNavigate();
 
-  // ✅ FETCH USERS + PROJECTS
-  useEffect(() => {
-    API.get("/users")
-      .then((res) => setUsers(res.data))
-      .catch(() => setError("Failed to load users"));
+  // ✅ GET LOGGED-IN USER
+  const { user } = useContext(AuthContext);
 
+  // ✅ FETCH USERS + PROJECTS (ROLE-BASED)
+  useEffect(() => {
+    // 🔒 Only admin can fetch users
+    if (user?.role === "admin") {
+      API.get("/users")
+        .then((res) => setUsers(res.data))
+        .catch(() => setError("Failed to load users"));
+    }
+
+    // ✅ Everyone can fetch projects
     API.get("/projects")
       .then((res) => setProjects(res.data))
       .catch(() => setError("Failed to load projects"));
-  }, []);
+
+  }, [user]);
 
   const createTask = async () => {
     try {
@@ -38,7 +47,16 @@ export default function CreateTask() {
         return setError("All fields are required");
       }
 
-      await API.post("/tasks", task);
+      // ✅ ROLE-BASED ASSIGNMENT (FIXED)
+      const payload = {
+        ...task,
+        assignedTo:
+          user?.role === "admin"
+            ? task.assignedTo || user?._id // fallback if admin doesn't select
+            : user?._id // normal user auto assign
+      };
+
+      await API.post("/tasks", payload);
 
       navigate("/dashboard");
 
@@ -95,21 +113,31 @@ export default function CreateTask() {
             }
           />
 
-          {/* ✅ ASSIGN USER */}
-          <select
-            className="border p-2 w-full mb-3 rounded"
-            value={task.assignedTo}
-            onChange={(e) =>
-              setTask({ ...task, assignedTo: e.target.value })
-            }
-          >
-            <option value="">Select User</option>
-            {users.map((u) => (
-              <option key={u._id} value={u._id}>
-                {u.name}
-              </option>
-            ))}
-          </select>
+          {/* 👤 NORMAL USER MESSAGE */}
+          {user?.role !== "admin" && (
+            <p className="text-sm text-gray-500 mb-2">
+              Task will be assigned to you automatically
+            </p>
+          )}
+
+          {/* 👑 ADMIN ONLY ASSIGN USER */}
+          {user?.role === "admin" && (
+            <select
+              className="border p-2 w-full mb-3 rounded"
+              value={task.assignedTo}
+              onChange={(e) =>
+                setTask({ ...task, assignedTo: e.target.value })
+              }
+            >
+              <option value="">Assign User</option>
+
+              {users.map((u) => (
+                <option key={u._id} value={u._id}>
+                  {u.name}
+                </option>
+              ))}
+            </select>
+          )}
 
           {/* ✅ SELECT PROJECT */}
           <select
