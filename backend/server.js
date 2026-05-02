@@ -17,8 +17,7 @@ connectDB();
 
 // ✅ CORS (better config for auth apps)
 app.use(cors({
-  origin: "http://localhost:5173", // frontend URL (change if needed)
-  credentials: true
+  origin: "*"
 }));
 
 // ✅ Body parser
