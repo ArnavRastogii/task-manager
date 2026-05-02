@@ -41,25 +41,32 @@ export default function Signup() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-500 via-emerald-600 to-teal-700 dark:from-gray-900 dark:to-black">
 
-      <div className="p-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl w-full max-w-sm">
+      {/* Glass Card */}
+      <div className="backdrop-blur-lg bg-white/10 dark:bg-gray-800/40 border border-white/20 shadow-2xl rounded-2xl p-8 w-full max-w-sm">
 
-        <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-          Signup
-        </h2>
+        {/* Branding */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-white">
+            🚀 Team Task Manager
+          </h1>
+          <p className="text-sm text-gray-200 mt-1">
+            Create your account
+          </p>
+        </div>
 
         {/* Error */}
         {error && (
-          <p className="text-red-500 text-sm mb-3">
+          <p className="bg-red-500/20 text-red-200 text-sm p-2 rounded mb-3 text-center">
             {error}
           </p>
         )}
 
         {/* Name */}
         <input
-          className="border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white p-2 w-full mb-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="Name"
+          className="w-full p-2 rounded bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400 mb-3"
+          placeholder="👤 Full Name"
           value={form.name}
           onChange={(e) =>
             setForm({ ...form, name: e.target.value })
@@ -68,8 +75,8 @@ export default function Signup() {
 
         {/* Email */}
         <input
-          className="border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white p-2 w-full mb-3 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
-          placeholder="Email"
+          className="w-full p-2 rounded bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400 mb-3"
+          placeholder="📧 Email"
           value={form.email}
           onChange={(e) =>
             setForm({ ...form, email: e.target.value })
@@ -78,9 +85,9 @@ export default function Signup() {
 
         {/* Password */}
         <input
-          className="border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white p-2 w-full mb-4 rounded focus:outline-none focus:ring-2 focus:ring-green-400"
+          className="w-full p-2 rounded bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-green-400 mb-4"
           type="password"
-          placeholder="Password"
+          placeholder="🔒 Password"
           value={form.password}
           onChange={(e) =>
             setForm({ ...form, password: e.target.value })
@@ -89,17 +96,17 @@ export default function Signup() {
 
         {/* Button */}
         <button
-          className="bg-green-500 hover:bg-green-600 text-white w-full p-2 rounded transition disabled:opacity-50"
+          className="w-full py-2 rounded bg-gradient-to-r from-green-500 to-emerald-600 hover:scale-[1.02] transition text-white font-semibold disabled:opacity-50"
           onClick={handleSignup}
           disabled={loading}
         >
-          {loading ? "Signing up..." : "Signup"}
+          {loading ? "Creating account..." : "Signup"}
         </button>
 
-        {/* Login link */}
-        <p className="text-sm mt-4 text-gray-600 dark:text-gray-300">
+        {/* Login Link */}
+        <p className="text-sm mt-5 text-center text-gray-200">
           Already have an account?{" "}
-          <Link to="/" className="text-blue-500 hover:underline">
+          <Link to="/" className="text-green-300 hover:underline">
             Login
           </Link>
         </p>
