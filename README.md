@@ -178,10 +178,6 @@ VITE_API_URL=http://localhost:5000/api
 
 This project is licensed under the MIT License - see the LICENSE file for details.
 
-## 💬 Support
 
-For support, email support@teamtaskmanager.com or open an issue in the repository.
-
----
 
 **Made with ❤️ by the Team Task Manager Team**
