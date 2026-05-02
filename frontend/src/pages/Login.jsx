@@ -38,45 +38,56 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex justify-center items-center bg-gray-100 dark:bg-gray-900">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-indigo-600 to-purple-700 dark:from-gray-900 dark:to-black">
 
-      <div className="p-6 bg-white dark:bg-gray-800 shadow-lg rounded-xl w-full max-w-sm">
+      {/* Glass Card */}
+      <div className="backdrop-blur-lg bg-white/10 dark:bg-gray-800/40 border border-white/20 shadow-2xl rounded-2xl p-8 w-full max-w-sm">
 
-        <h2 className="text-xl font-bold mb-4 text-gray-800 dark:text-white">
-          Login
-        </h2>
+        {/* Logo / Title */}
+        <div className="text-center mb-6">
+          <h1 className="text-2xl font-bold text-white">
+            🚀 Team Task Manager
+          </h1>
+          <p className="text-sm text-gray-200 mt-1">
+            Manage your tasks efficiently
+          </p>
+        </div>
 
         {/* Error */}
         {error && (
-          <p className="text-red-500 text-sm mb-3">
+          <p className="bg-red-500/20 text-red-200 text-sm p-2 rounded mb-3 text-center">
             {error}
           </p>
         )}
 
-        {/* Email */}
-        <input
-          className="border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white p-2 w-full mb-3 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Email"
-          value={form.email}
-          onChange={(e) =>
-            setForm({ ...form, email: e.target.value })
-          }
-        />
+        {/* Email Input */}
+        <div className="mb-3">
+          <input
+            className="w-full p-2 rounded bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            placeholder="📧 Email"
+            value={form.email}
+            onChange={(e) =>
+              setForm({ ...form, email: e.target.value })
+            }
+          />
+        </div>
 
-        {/* Password */}
-        <input
-          className="border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white p-2 w-full mb-4 rounded focus:outline-none focus:ring-2 focus:ring-blue-400"
-          type="password"
-          placeholder="Password"
-          value={form.password}
-          onChange={(e) =>
-            setForm({ ...form, password: e.target.value })
-          }
-        />
+        {/* Password Input */}
+        <div className="mb-4">
+          <input
+            className="w-full p-2 rounded bg-white/20 text-white placeholder-gray-300 border border-white/30 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            type="password"
+            placeholder="🔒 Password"
+            value={form.password}
+            onChange={(e) =>
+              setForm({ ...form, password: e.target.value })
+            }
+          />
+        </div>
 
-        {/* Button */}
+        {/* Login Button */}
         <button
-          className="bg-blue-500 hover:bg-blue-600 text-white w-full p-2 rounded transition disabled:opacity-50"
+          className="w-full py-2 rounded bg-gradient-to-r from-blue-500 to-indigo-600 hover:scale-[1.02] transition text-white font-semibold disabled:opacity-50"
           onClick={handleLogin}
           disabled={loading}
         >
@@ -84,9 +95,9 @@ export default function Login() {
         </button>
 
         {/* Signup */}
-        <p className="text-sm mt-4 text-gray-600 dark:text-gray-300">
+        <p className="text-sm mt-5 text-center text-gray-200">
           Don't have an account?{" "}
-          <Link to="/signup" className="text-blue-500 hover:underline">
+          <Link to="/signup" className="text-blue-300 hover:underline">
             Signup
           </Link>
         </p>
